@@ -41,24 +41,5 @@
     }
   },
   "acls": [],
-  "methods": {
-    "findAllMatching": {
-      "accepts": [
-        {
-          "arg": "url",
-          "type": "string",
-          "required": true,
-          "description": "A URL"
-        }
-      ],
-      "returns": [],
-      "description": "Returns all templates that match the url passed as an argument",
-      "http": [
-        {
-          "path": "/matching",
-          "verb": "get"
-        }
-      ]
-    }
-  }
+  "methods": {}
 }
