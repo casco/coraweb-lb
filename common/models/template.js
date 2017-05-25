@@ -1,7 +1,5 @@
 'use strict';
 
-var Regex=require("regex");
-
 module.exports = function(Template) {
 
   /**
@@ -9,7 +7,7 @@ module.exports = function(Template) {
    * @param {string} url A URL
    */
   Template.prototype.matches = function(url) {
-      var regex = new Regex(this.urlPattern);
+      var regex = new RegExp(this.urlPattern);
       return regex.test(url)
   }
 
