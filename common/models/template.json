@@ -1,0 +1,64 @@
+{
+  "name": "template",
+  "plural": "templates",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "urlPattern": {
+      "type": "string",
+      "required": true
+    },
+    "xPathPropertySelectors": {
+      "type": "object",
+      "required": true
+    },
+    "itemType": {
+      "type": "string",
+      "required": true
+    },
+    "groups": {
+      "type": [
+        "string"
+      ],
+      "default": [
+        "[]"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "owner": {
+      "type": "hasOne",
+      "model": "person",
+      "foreignKey": "email"
+    }
+  },
+  "acls": [],
+  "methods": {
+    "findAllMatching": {
+      "accepts": [
+        {
+          "arg": "url",
+          "type": "string",
+          "required": true,
+          "description": "A URL"
+        }
+      ],
+      "returns": [],
+      "description": "Returns all templates that match the url passed as an argument",
+      "http": [
+        {
+          "path": "/matching",
+          "verb": "get"
+        }
+      ]
+    }
+  }
+}

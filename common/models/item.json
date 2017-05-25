@@ -1,0 +1,38 @@
+{
+  "name": "item",
+  "plural": "items",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "properties": {
+      "type": "object"
+    },
+    "groups": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "owner": {
+      "type": "hasOne",
+      "model": "person",
+      "foreignKey": "email"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
