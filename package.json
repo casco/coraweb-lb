@@ -24,7 +24,10 @@
   "devDependencies": {
     "eslint": "^3.17.1",
     "eslint-config-loopback": "^8.0.0",
-    "nsp": "^2.1.0"
+    "expect": "^1.20.2",
+    "mocha": "^3.4.2",
+    "nsp": "^2.1.0",
+    "supertest": "^3.0.0"
   },
   "repository": {
     "type": "",
