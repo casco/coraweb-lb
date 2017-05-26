@@ -1,28 +1,45 @@
 'use strict';
 
-module.exports = function(Template) {
+module.exports = function (Template) {
 
   /**
    * Returns true if the receiver matchers the url passed as an argument
    * @param {string} url A URL
    */
-  Template.prototype.matches = function(url) {
-      var regex = new RegExp(this.urlPattern);
-      return regex.test(url)
+  Template.prototype.matches = function (url) {
+    var regex = new RegExp(this.urlPattern);
+    return regex.test(url)
   }
 
   /**
    * Retrieves the url and creates/updates an Item from it
    * @param {string} url A URL
    */
-  Template.prototype.harvest = function(url) {
-      console.log("harvesting " + url);
-      
+  Template.prototype.harvest = function (url) {
+    var request = require("request");
+    var self = this;
+    request(url, function (error, response, body) {
+      var properties = self.harvestProperties(body);
+      console.log(properties);
       // Hacer in retrieve de la url
       // Obtener propiedades utilizando los xpaths de este template
       // Crear un item con esas propiedades
       // Devolver el item creado asi se puede devolver en la repsuesta
-      return {}
+    });
+    return {}
+  }
+
+  Template.prototype.harvestProperties = function (body) {
+    var cheerio = require("cheerio");
+    var $ = cheerio.load(body);
+    var properties = {};
+    for (var prop in this.xPathPropertySelectors) {
+      if (this.xPathPropertySelectors.hasOwnProperty(prop)) {
+        properties[prop] = $(this.xPathPropertySelectors[prop]).text();
+      }
+    }
+    return properties
+
   }
 
   /**             REMOTE METHODS          **/
@@ -32,17 +49,17 @@ module.exports = function(Template) {
    * @param {string} url A URL
    * @param {Function(Error)} callback
    */
-  Template.findAllMatching = function(url, callback) {
-    Template.find(function(err, returned_instances) {
-      var filtered = returned_instances.filter(function(x) {return x.matches(url)});
-       callback(null, filtered);
+  Template.findAllMatching = function (url, callback) {
+    Template.find(function (err, returned_instances) {
+      var filtered = returned_instances.filter(function (x) { return x.matches(url) });
+      callback(null, filtered);
     });
   };
 
-  Template.remoteMethod ('findAllMatching', {
-            http: {path: '/matching', verb: 'get'},
-            accepts: {arg: 'url', type: 'string'},
-            returns: {arg: 'response', type: 'array'}
+  Template.remoteMethod('findAllMatching', {
+    http: { path: '/matching', verb: 'get' },
+    accepts: { arg: 'url', type: 'string' },
+    returns: { arg: 'response', type: 'array' }
   });
 
 
@@ -52,21 +69,21 @@ module.exports = function(Template) {
    * @param {string} url A URL
    * @param {Function(Error)} callback
    */
-  Template.harvest = function(url, callback) {
-    Template.find(function(err, returned_instances) {
-      var filtered = returned_instances.filter(function(x) {return x.matches(url)});
+  Template.harvest = function (url, callback) {
+    Template.find(function (err, returned_instances) {
+      var filtered = returned_instances.filter(function (x) { return x.matches(url) });
       var response = "Created/updated items with " + filtered.length + " matching templates";
-      filtered.forEach(function(element) {
+      filtered.forEach(function (element) {
         element.harvest(url);
       }, this);
       callback(null, response);
     });
   };
 
-  Template.remoteMethod ('harvest', {
-            http: {path: '/harvest', verb: 'get'},
-            accepts: {arg: 'url', type: 'string'},
-            returns: {arg: 'response', type: 'string'}
+  Template.remoteMethod('harvest', {
+    http: { path: '/harvest', verb: 'get' },
+    accepts: { arg: 'url', type: 'string' },
+    returns: { arg: 'response', type: 'string' }
   });
 
 

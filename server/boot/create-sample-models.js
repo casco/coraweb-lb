@@ -10,8 +10,8 @@ module.exports = function (app) {
         "itemType": "http://schema.org/VideoObject",
         "urlPattern": "https://www.youtube.com/watch.*",
         "xPathPropertySelectors": {
-          "title": "//span[@id=\"eow-title\"]/text()",
-          "description": "//p[@id=\"eow-description\"]/text()"
+          "title": "[id=eow-title]",
+          "description": "[id=eow-description]"
         }
       }
     ], function (err, templates) {
