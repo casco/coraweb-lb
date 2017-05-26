@@ -11,6 +11,8 @@ module.exports = function(Template) {
       return regex.test(url)
   }
 
+  
+
   /**
    * Returns all templates that match the url passed as an argument
    * @param {string} url A URL
