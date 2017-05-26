@@ -15,18 +15,20 @@ module.exports = function (Template) {
    * Retrieves the url and creates/updates an Item from it
    * @param {string} url A URL
    */
-  Template.prototype.harvest = function (url) {
+  Template.prototype.harvest = function (url, callback) {
     var request = require("request");
     var self = this;
     request(url, function (error, response, body) {
       var properties = self.harvestProperties(body);
-      console.log(properties);
-      // Hacer in retrieve de la url
-      // Obtener propiedades utilizando los xpaths de este template
-      // Crear un item con esas propiedades
-      // Devolver el item creado asi se puede devolver en la repsuesta
+      Template.app.models.Item.upsert({
+        "type": self.itemType,
+        "url": url,
+        "properties": properties,
+        "groups": ["public"]
+      }, function (err, object) {
+        callback(null, object);
+      })
     });
-    return {}
   }
 
   Template.prototype.harvestProperties = function (body) {
@@ -64,7 +66,7 @@ module.exports = function (Template) {
 
 
   /**
-   * Retrieves the url given as an argument, finds all matching Templates, 
+   * Retrieves the url given as an argument, finds the first matching Template, 
    * and creates items accordingly
    * @param {string} url A URL
    * @param {Function(Error)} callback
@@ -72,11 +74,12 @@ module.exports = function (Template) {
   Template.harvest = function (url, callback) {
     Template.find(function (err, returned_instances) {
       var filtered = returned_instances.filter(function (x) { return x.matches(url) });
-      var response = "Created/updated items with " + filtered.length + " matching templates";
-      filtered.forEach(function (element) {
-        element.harvest(url);
-      }, this);
-      callback(null, response);
+      if (filtered.length > 0) {
+        filtered[0].harvest(url, callback);
+      } else {
+        callback(null, "no template matches " + url);
+      }
+
     });
   };
 
