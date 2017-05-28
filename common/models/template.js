@@ -8,7 +8,7 @@ module.exports = function (Template) {
    */
   Template.prototype.matches = function (url) {
     var regex = new RegExp(this.urlPattern);
-    return regex.test(url)
+    return regex.test(url);
   }
 
   /**

@@ -1,6 +1,5 @@
 {
-  "name": "item",
-  "plural": "items",
+  "name": "Item",
   "base": "PersistedModel",
   "idInjection": false,
   "options": {
@@ -29,7 +28,7 @@
   "relations": {
     "owner": {
       "type": "hasOne",
-      "model": "person",
+      "model": "Person",
       "foreignKey": "email"
     }
   },

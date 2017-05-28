@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (app) {
-  app.dataSources.db.automigrate('template', function (err) {
+  app.dataSources.db.automigrate('Template', function (err) {
     if (err) throw err;
     app.models.Template.create([
       {

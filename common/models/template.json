@@ -1,6 +1,5 @@
 {
-  "name": "template",
-  "plural": "templates",
+  "name": "Template",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -36,7 +35,7 @@
   "relations": {
     "owner": {
       "type": "hasOne",
-      "model": "person",
+      "model": "Person",
       "foreignKey": "email"
     }
   },

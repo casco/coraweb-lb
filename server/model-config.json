@@ -35,15 +35,15 @@
     "dataSource": "db",
     "public": false
   },
-  "item": {
+  "Item": {
     "dataSource": "db",
     "public": true
   },
-  "person": {
+  "Person": {
     "dataSource": "db",
     "public": true
   },
-  "template": {
+  "Template": {
     "dataSource": "db",
     "public": true
   }

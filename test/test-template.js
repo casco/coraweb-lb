@@ -1,15 +1,22 @@
 
-describe('Template', function () {
+describe('Template tests', function () {
 
-  var server = require('../server/server')
-  var request = require('supertest')(server)
+  var app = require('../server/server');
   var assert = require('assert');
-  var youtubeTemplate
-  var loopback = require('loopback');
-  var app = loopback();
-  var Template = app.models.Template;
+  var Template;
+  var youtubeTemplate;
+  var server;
 
-  beforeEach(function () {
+  before(function(done) {
+    server = app.listen(done);
+    Template = app.models.Template;
+  });
+
+  after(function(done) {
+    server.close(done);
+  });
+
+  beforeEach(function (done) {
     Template.upsert({
       "groups": ["public"],
       "name": "a simple template",
@@ -19,14 +26,18 @@ describe('Template', function () {
         "title": "//span[@id=\"eow-title\"]/text()",
         "description": "//p[@id=\"eow-description\"]/text()"
       }
+    }, function callback(err, object) {
+      youtubeTemplate = object;
+      console.log("end-before-each");
+      done();
     });
   });
 
   describe('matches', function () {
-    Template.findOne({
-      where: { name: 'a simple template' }, function(err, template)
-      { assert(youtubeTemplate.matches("https://www.youtube.com/watch?v=ETd8YIxTaog")) }
+    it ("Should match for a matching URL, but not for others", function () {
+      assert(youtubeTemplate.matches("https://www.youtube.com/watch/JHGASFR"));
+      assert(! youtubeTemplate.matches("https://www.youtube.com/"));
     });
-
   });
+
 })

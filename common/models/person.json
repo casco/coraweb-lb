@@ -1,5 +1,5 @@
 {
-  "name": "person",
+  "name": "Person",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
