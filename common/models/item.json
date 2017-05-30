@@ -27,9 +27,9 @@
   "validations": [],
   "relations": {
     "owner": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Person",
-      "foreignKey": "email"
+      "foreignKey": "personId"
     }
   },
   "acls": [],
