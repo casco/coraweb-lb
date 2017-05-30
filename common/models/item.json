@@ -26,10 +26,10 @@
   },
   "validations": [],
   "relations": {
-    "owner": {
+    "email": {
       "type": "belongsTo",
       "model": "Person",
-      "foreignKey": "personId"
+      "foreignKey": "owner"
     }
   },
   "acls": [],
