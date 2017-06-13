@@ -1,7 +1,7 @@
 # CoRAWeb server
 This server implements the repository component of CoRAWeb. It stores templates, items, and users. 
 
-#Installation
+# Installation
 
 1. Install NodeJs following any tutorial.
 2. Install Git (if not installed)
