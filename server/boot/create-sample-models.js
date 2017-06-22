@@ -15,7 +15,7 @@ var sampleTemplates = [
     "itemType": "http://schema.org/VideoObject",
     "urlPattern": "https://www.youtube.com/watch.*",
     "owner": "no_reply@lifia.info.unlp.edu.ar",
-    "xPathPropertySelectors": {
+    "propertySelectors": {
       "title": "[id=eow-title]",
       "description": "[id=eow-description]"
     }
@@ -26,7 +26,7 @@ var sampleTemplates = [
     "itemType": "http://schema.org/PresentationDigitalDocument",
     "urlPattern": "https://www.slideshare.net/.*",
     "owner": "no_reply@lifia.info.unlp.edu.ar",
-    "xPathPropertySelectors": {
+    "propertySelectors": {
       "title": "[class=j-title-breadcrumb]",
       "description": "[id=slideshow-description-paragraph]"
     }
@@ -37,7 +37,7 @@ var sampleTemplates = [
     "itemType": "http://schema.org/Article",
     "urlPattern": "https://www.mendeley.com/research-papers/.*",
     "owner": "no_reply@lifia.info.unlp.edu.ar",
-    "xPathPropertySelectors": {
+    "propertySelectors": {
       "title": "[data-name=title]",
       "authors": "[class=authors]",
       "description": "[data-name=content]"

@@ -7,12 +7,12 @@ describe('Template tests', function () {
   var youtubeTemplate;
   var server;
 
-  before(function(done) {
+  before(function (done) {
     server = app.listen(done);
     Template = app.models.Template;
   });
 
-  after(function(done) {
+  after(function (done) {
     server.close(done);
   });
 
@@ -22,7 +22,7 @@ describe('Template tests', function () {
       "name": "a simple template",
       "itemType": "http://schema.org/VideoObject",
       "urlPattern": "https://www.youtube.com/watch.*",
-      "xPathPropertySelectors": {
+      "propertySelectors": {
         "title": "//span[@id=\"eow-title\"]/text()",
         "description": "//p[@id=\"eow-description\"]/text()"
       }
@@ -34,9 +34,9 @@ describe('Template tests', function () {
   });
 
   describe('matches', function () {
-    it ("Should match for a matching URL, but not for others", function () {
+    it("Should match for a matching URL, but not for others", function () {
       assert(youtubeTemplate.matches("https://www.youtube.com/watch/JHGASFR"));
-      assert(! youtubeTemplate.matches("https://www.youtube.com/"));
+      assert(!youtubeTemplate.matches("https://www.youtube.com/"));
     });
   });
 
