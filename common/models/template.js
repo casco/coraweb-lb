@@ -35,9 +35,9 @@ module.exports = function (Template) {
     var cheerio = require("cheerio");
     var $ = cheerio.load(body);
     var properties = {};
-    for (var prop in this.xPathPropertySelectors) {
-      if (this.xPathPropertySelectors.hasOwnProperty(prop)) {
-        properties[prop] = $(this.xPathPropertySelectors[prop]).text();
+    for (var prop in this.propertySelectors) {
+      if (this.propertySelectors.hasOwnProperty(prop)) {
+        properties[prop] = $(this.propertySelectors[prop]).text();
       }
     }
     return properties
